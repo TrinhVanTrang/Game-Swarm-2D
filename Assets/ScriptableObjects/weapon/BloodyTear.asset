@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfb096926e0dfa942afb065ab916b204, type: 3}
+  m_Name: BloodyTear
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  weaponName: BloodyTear
+  prefab: {fileID: 8847949083088352122, guid: 19dc42f0ccea54f4286b45083268c638, type: 3}
+  image: {fileID: -6271260450094184604, guid: 7a3017d0db56f074d80ac86384b66efb, type: 3}
+  icon: {fileID: -7293498383090821306, guid: d5a45a7d1fb66f142b298b507691b63f, type: 3}
+  isEvolutional: 0
+  poolLimit: 30
+  poolName: BloodyTear
+  levelStats:
+  - damage: 40
+    cooldown: 1.35
+    projectileInterval: 0.1
+    speed: 0
+    area: 1.3
+    amount: 2
+    pierce: 0
+    upgradeDescription: .
+  evolutionWeapon: {fileID: 0}
+  requiredPassive: {fileID: 0}

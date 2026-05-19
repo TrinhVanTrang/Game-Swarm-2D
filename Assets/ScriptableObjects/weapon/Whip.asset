@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfb096926e0dfa942afb065ab916b204, type: 3}
+  m_Name: Whip
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  weaponName: Whip
+  prefab: {fileID: 3184795446767828048, guid: 44ebb1383f389e34da5e477cea9e3ae3, type: 3}
+  image: {fileID: 5550164877690090568, guid: 41a32b113869982418d54cbaa7e9de56, type: 3}
+  icon: {fileID: -5233009089321712917, guid: f092e1959dbb0f34b89210384b552062, type: 3}
+  isEvolutional: 1
+  poolLimit: 30
+  poolName: Whip
+  levelStats:
+  - damage: 10
+    cooldown: 1.35
+    projectileInterval: 0.1
+    speed: 1
+    area: 1
+    amount: 1
+    pierce: 1
+    upgradeDescription: Attacks horizontally, passes through enemies.
+  - damage: 10
+    cooldown: 1.35
+    projectileInterval: 0.1
+    speed: 1
+    area: 1
+    amount: 2
+    pierce: 1
+    upgradeDescription: 'Fires 1 more projectile. '
+  - damage: 15
+    cooldown: 1.35
+    projectileInterval: 0.1
+    speed: 1
+    area: 1
+    amount: 2
+    pierce: 1
+    upgradeDescription: 'Base Damage up by 5. '
+  - damage: 20
+    cooldown: 1.35
+    projectileInterval: 0.1
+    speed: 1
+    area: 1.1
+    amount: 2
+    pierce: 1
+    upgradeDescription: Base Area up by 10%. Base Damage up by 5.
+  - damage: 25
+    cooldown: 1.35
+    projectileInterval: 0.1
+    speed: 1
+    area: 1.1
+    amount: 2
+    pierce: 1
+    upgradeDescription: 'Base Damage up by 5. '
+  - damage: 30
+    cooldown: 1.35
+    projectileInterval: 0.1
+    speed: 1
+    area: 1.2
+    amount: 2
+    pierce: 1
+    upgradeDescription: 'Base Area up by 10%. Base Damage up by 5. '
+  - damage: 35
+    cooldown: 1.35
+    projectileInterval: 0.1
+    speed: 1
+    area: 1.2
+    amount: 2
+    pierce: 1
+    upgradeDescription: 'Base Damage up by 5. '
+  - damage: 40
+    cooldown: 1.35
+    projectileInterval: 0.1
+    speed: 1
+    area: 1.2
+    amount: 2
+    pierce: 1
+    upgradeDescription: 'Base Damage up by 5. '
+  evolutionWeapon: {fileID: 11400000, guid: 1586fc02781c22a4db1016927a5b2a63, type: 2}
+  requiredPassive: {fileID: 11400000, guid: 1fafe8812a8d11342b1b7a8a9bbd7e61, type: 2}

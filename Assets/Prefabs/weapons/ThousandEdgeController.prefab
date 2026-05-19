@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8640074648696282621
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1710607623402781832}
+  - component: {fileID: 3810724869561467072}
+  m_Layer: 0
+  m_Name: ThousandEdgeController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1710607623402781832
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8640074648696282621}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 548.5, y: 454.375, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3810724869561467072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8640074648696282621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053867ed2d67cea4e98dc778b2e186c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThousandEdge
+  weaponData: {fileID: 11400000, guid: 49121049561200d4a88074972b191ca1, type: 2}
+  currentLevel: 0
+  maxLevel: 1
+  damage: 0
+  amount: 0
+  pierce: 0
+  cooldown: 0
+  projectileInterval: 0
+  baseSpeed: 5
+  speed: 0
+  bulletHitBoxRadius: 0.2
+  area: 0
+  knockback: 0
+  firePoint: {fileID: 0}
+  lastMoveDir: {x: 1, y: 0}
+  timer: 0
+  statsManager: {fileID: 0}
+  sprites:
+  - {fileID: 5097946588036021250, guid: 5e259d8aba4ac0548bbb7a00966b1c07, type: 3}
+  - {fileID: 3874633698910603185, guid: 5e259d8aba4ac0548bbb7a00966b1c07, type: 3}
+  - {fileID: -1535047881936220510, guid: 5e259d8aba4ac0548bbb7a00966b1c07, type: 3}

@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfb096926e0dfa942afb065ab916b204, type: 3}
+  m_Name: MagicWand
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  weaponName: MagicWand
+  prefab: {fileID: 554175184482113385, guid: e734cb6abee49ca45b6d221cb43aed8c, type: 3}
+  image: {fileID: 5378226525086922102, guid: 41bbf33d09568f94ba3de41fffd89669, type: 3}
+  icon: {fileID: -2645352184261527693, guid: 079596b5e220ba447a823849d510edb9, type: 3}
+  isEvolutional: 1
+  poolLimit: 60
+  poolName: MagicWand
+  levelStats:
+  - damage: 10
+    cooldown: 1.2
+    projectileInterval: 0.1
+    speed: 1
+    area: 1
+    amount: 1
+    pierce: 1
+    upgradeDescription: 'Fires at the nearest enemy. '
+  - damage: 10
+    cooldown: 1.2
+    projectileInterval: 0.1
+    speed: 1
+    area: 1
+    amount: 2
+    pierce: 1
+    upgradeDescription: Fires 1 more projectile.
+  - damage: 10
+    cooldown: 1
+    projectileInterval: 0.1
+    speed: 1
+    area: 1
+    amount: 2
+    pierce: 1
+    upgradeDescription: Cooldown reduced by 0.2 seconds.
+  - damage: 10
+    cooldown: 1
+    projectileInterval: 0.1
+    speed: 1
+    area: 1
+    amount: 3
+    pierce: 1
+    upgradeDescription: Fires 1 more projectile.
+  - damage: 20
+    cooldown: 1
+    projectileInterval: 0.1
+    speed: 1
+    area: 1
+    amount: 3
+    pierce: 1
+    upgradeDescription: Base Damage up by 10.
+  - damage: 20
+    cooldown: 1
+    projectileInterval: 0.1
+    speed: 1
+    area: 1
+    amount: 4
+    pierce: 1
+    upgradeDescription: Fires 1 more projectile.
+  - damage: 20
+    cooldown: 1
+    projectileInterval: 0.1
+    speed: 1
+    area: 1
+    amount: 4
+    pierce: 2
+    upgradeDescription: Passes through 1 more enemy.
+  - damage: 30
+    cooldown: 1
+    projectileInterval: 0.1
+    speed: 1
+    area: 1
+    amount: 4
+    pierce: 2
+    upgradeDescription: 'Base Damage up by 10. '
+  evolutionWeapon: {fileID: 11400000, guid: 1586fc02781c22a4db1016927a5b2a63, type: 2}
+  requiredPassive: {fileID: 11400000, guid: ae451d9a95daa5c41b88b709e8e4cc28, type: 2}

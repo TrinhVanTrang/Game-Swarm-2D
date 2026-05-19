@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f4504aacc008d046834f346a3eaec2b, type: 3}
+  m_Name: Health
+  m_EditorClassIdentifier: Assembly-CSharp::PassiveData
+  passiveName: Health
+  image: {fileID: -1515405729478551105, guid: 629e7d7bff1866e4f90d388cb046a7cf, type: 3}
+  icon: {fileID: -6572516130235333609, guid: 1409c458439b484458cb3ec4c82d6f1e, type: 3}
+  affectedStat: 0
+  isPercentage: 0
+  levelStats:
+  - statValue: 1.2
+    description: Augment max health by 20%.
+  - statValue: 1.44
+    description: 'Max health increases by 20% '
+  - statValue: 1.728
+    description: 'Max health increases by 20% '
+  - statValue: 2.0736
+    description: 'Max health increases by 20% '
+  - statValue: 2.48832
+    description: 'Max health increases by 20% '
