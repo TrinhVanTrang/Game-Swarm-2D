@@ -5,6 +5,7 @@ using System.Linq;
 
 public class BloodyTearController : WeaponController
 {
+    public float healAmount;
     float dirX = 1f;
     public Vector2 hitBoxSize;
     void FixedUpdate()
@@ -31,7 +32,7 @@ public class BloodyTearController : WeaponController
 
     IEnumerator FireSequence()
     {
-        Vector3 spawnPosition = firePoint.position + new Vector3(hitBoxSize.x / 2 * dirX * area, 0, 0);
+        Vector3 spawnPosition = firePoint.position + new Vector3(hitBoxSize.x / 2 * dirX * areaMultiplier, 0, 0);
 
         SpawnKnife(spawnPosition, dirX);
 
@@ -39,7 +40,7 @@ public class BloodyTearController : WeaponController
         if (amount >= 2)
         {
             yield return new WaitForSeconds(projectileInterval);
-            spawnPosition = firePoint.position + new Vector3(-hitBoxSize.x / 2 * dirX * area, 0, 0);
+            spawnPosition = firePoint.position + new Vector3(-hitBoxSize.x / 2 * dirX * areaMultiplier, 0, 0);
 
             SpawnKnife(spawnPosition, -dirX);
         }
@@ -52,26 +53,27 @@ public class BloodyTearController : WeaponController
         if (bulletGO == null) return;
 
         BloodyTearDamageArea proj = bulletGO.GetComponent<BloodyTearDamageArea>();
-        proj.baseTransform = bulletGO.transform;  // luu model nguyen ban
-        bulletGO.transform.position = pos;
-        bulletGO.transform.localScale *= area;    // scale theo pham vi
+        bulletGO.transform.localScale = baseTransform.localScale;     // lay model nguyen mau
+
         // Truyền các chỉ số vào viên dao
-        //proj.Setup(damage, pierce, speed, lastMoveDir);
+        bulletGO.transform.position = pos;
+        bulletGO.transform.localScale *= areaMultiplier;    // scale theo pham vi
         proj.poolName = weaponData.poolName;
-        proj.bulletDamage = damage;
-        proj.movementSpeed = baseSpeed * speed;
-        proj.bulletHitBoxRadius = bulletHitBoxRadius * area;
+        proj.bulletDamage = baseDamage;
+        proj.movementSpeed = baseSpeed * speedMultiplier;
+        proj.bulletHitBoxRadius = bulletHitBoxRadius * areaMultiplier;
         proj.MovementDirection = lastMoveDir;
         proj.modelTransform = bulletGO.transform;
         Vector3 currentScale = bulletGO.transform.localScale;
         bulletGO.transform.localScale = new Vector3(currentScale.x * direct, currentScale.y, currentScale.z);  // xoay theo dirX
         proj.knockBack = knockBack;
         proj.pierce = pierce;
-        proj.area = area;
+        proj.area = areaMultiplier;
         proj.dirX = direct;
         proj.hitBoxSize = hitBoxSize;
+        proj.healAmount = healAmount;
         //proj.enemyLayer = enemyLayer;
-        proj.startTravel();
+        proj.StartTravel();
     }
 
     private void OnDrawGizmosSelected()
@@ -79,14 +81,21 @@ public class BloodyTearController : WeaponController
         Gizmos.color = Color.red;
 
         // Vẽ hitbox phía trước
-        Vector2 frontCenter = (Vector2)firePoint.position + new Vector2(dirX * hitBoxSize.x / 2 * area, 0f);
-        Gizmos.DrawWireCube(frontCenter, hitBoxSize * area);
+        Vector2 frontCenter = (Vector2)firePoint.position + new Vector2(dirX * hitBoxSize.x / 2 * areaMultiplier, 0f);
+        Gizmos.DrawWireCube(frontCenter, hitBoxSize * areaMultiplier);
 
         // Vẽ hitbox phía sau nếu level >= 2
         if (amount >= 2)
         {
-            Vector2 backCenter = (Vector2)firePoint.position + new Vector2(-dirX * hitBoxSize.x / 2 * area, 0f);
-            Gizmos.DrawWireCube(backCenter, hitBoxSize * area);
+            Vector2 backCenter = (Vector2)firePoint.position + new Vector2(-dirX * hitBoxSize.x / 2 * areaMultiplier, 0f);
+            Gizmos.DrawWireCube(backCenter, hitBoxSize * areaMultiplier);
         }
+    }
+
+    public override void Start()
+    {
+        base.Start();
+        hitBoxSize = new Vector2(2, 0.5f);
+        healAmount = 8f;
     }
 }

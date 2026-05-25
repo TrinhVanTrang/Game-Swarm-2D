@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class CharacterController : MonoBehaviour
 {
+    [SerializeField] private LevelUpManager levelUpManager;
+    [SerializeField] private PlayerStatsManager statsManager;
     private bool isFacingRight = true;
     public Animator animator;
     public Image fillImage;
@@ -52,12 +54,16 @@ public class CharacterController : MonoBehaviour
     {
         spatialGroup = GameController.instance.GetSpatialGroup(transform.position.x, transform.position.y); // GET spatial group
         //LevelUp();
+        maxHealth = statsManager.GetCurrentHealth();
+        health = maxHealth;
+        movementSpeed = statsManager.GetCurrentMoveSpeed();
         UIHealthBar.instance.UpdateBar(health, maxHealth);
         level++;
         xpFromLastLevel = xpToNextLevel;
         // xpToNextLevel = Utils.GetExperienceRequired(level) - xpToNextLevel;
         xpToNextLevel = Utils.GetExperienceRequired(level);
         UIExperienceBar.instance.SetLevelText(level, xpToNextLevel - xpFromLastLevel);
+
     }
 
     void FixedUpdate()
@@ -191,22 +197,23 @@ public class CharacterController : MonoBehaviour
 
     public void LevelUp()
     {
-        Debug.Log("xp: " + xp + " xp to next level: " + xpToNextLevel);
+        //Debug.Log("xp: " + xp + " xp to next level: " + xpToNextLevel);
         level++;
         xpFromLastLevel = xpToNextLevel;
-        // xpToNextLevel = Utils.GetExperienceRequired(level) - xpToNextLevel;
         xpToNextLevel = Utils.GetExperienceRequired(level);
-        Debug.Log("Level Up! xp: " + xp + " xp to next level: " + xpToNextLevel);
+        //Debug.Log("Level Up! xp: " + xp + " xp to next level: " + xpToNextLevel);
 
         UIExperienceBar.instance.SetLevelText(level, xpToNextLevel - xpFromLastLevel);
 
         //TODO: Gaining weapons?
+        levelUpManager.TriggerLevelUp();
         //Knife.instance.LevelUp();
     }
 
     public void ModifyHealth(float amount)
     {
         health += amount;
+        health = Mathf.Min(health, maxHealth);
 
         UIHealthBar.instance.UpdateBar(health, maxHealth);
 
@@ -214,6 +221,21 @@ public class CharacterController : MonoBehaviour
         {
             KillPlayer();
         }
+    }
+    public void IncreaseHealth()
+    {
+        float healthPercent = health / maxHealth;
+        maxHealth = statsManager.GetCurrentHealth();
+        health = (float)healthPercent * maxHealth;
+        UIHealthBar.instance.UpdateBar(health, maxHealth);
+    }
+
+    public void UpdateStats()
+    {
+        IncreaseHealth();
+        movementSpeed = statsManager.GetCurrentMoveSpeed();
+
+
     }
 
     void KillPlayer()

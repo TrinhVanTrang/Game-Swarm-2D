@@ -56,10 +56,9 @@ MonoBehaviour:
   speed: 0
   bulletHitBoxRadius: 0.2
   area: 0
-  knockback: 0
+  knockBack: 1
   firePoint: {fileID: 0}
   lastMoveDir: {x: 1, y: 0}
-  timer: 0
   statsManager: {fileID: 0}
   sprites:
   - {fileID: 5097946588036021250, guid: 5e259d8aba4ac0548bbb7a00966b1c07, type: 3}

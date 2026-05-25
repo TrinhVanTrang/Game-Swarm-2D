@@ -66,6 +66,7 @@ public class ThousandEdgeController : WeaponController
             // i = 0: bên trái, i = 1: ở giữa, i = 2: bên phải (nếu có 3 viên)
             int index = Random.Range(0, currentBatchCount);
             float offset = (index - (currentBatchCount - 1) / 2f) * spacing;
+            if (firePoint == null) yield return null;
             Vector3 spawnPosition = firePoint.position + (Vector3)(perpendicular * offset);
             if (GameController.instance.IsInsideTheMap(spawnPosition))
             {
@@ -83,25 +84,29 @@ public class ThousandEdgeController : WeaponController
         GameObject bulletGO = BulletPoolManager.instance.GetBullet(weaponData);
         if (bulletGO == null) return;
         ThousandEdgeBullet proj = bulletGO.GetComponent<ThousandEdgeBullet>();
-        proj.baseTransform = bulletGO.transform;
+        bulletGO.transform.localScale = baseTransform.localScale;     // lay model nguyen mau
         int index = Random.Range(0, 3);
         SpriteRenderer sr = bulletGO.GetComponent<SpriteRenderer>();
         sr.sprite = sprites[index];
         bulletGO.transform.position = pos;
-        bulletGO.transform.localScale *= area;
+        bulletGO.transform.localScale *= areaMultiplier;
 
         // Truyền các chỉ số vào viên dao
         //proj.Setup(damage, pierce, speed, lastMoveDir);
         proj.poolName = weaponData.poolName;
-        proj.bulletDamage = damage;
-        proj.movementSpeed = baseSpeed * speed;
-        proj.bulletHitBoxRadius = bulletHitBoxRadius * area;
+        proj.bulletDamage = baseDamage;
+        proj.movementSpeed = baseSpeed * speedMultiplier;
+        proj.bulletHitBoxRadius = bulletHitBoxRadius * areaMultiplier;
         proj.MovementDirection = lastMoveDir;
         proj.modelTransform = bulletGO.transform;
         proj.knockBack = knockBack;
         proj.pierce = pierce;
-        proj.area = area;
+        proj.area = areaMultiplier;
 
-        proj.startTravel();
+        proj.StartTravel();
+    }
+    public override void Start()
+    {
+        base.Start();
     }
 }

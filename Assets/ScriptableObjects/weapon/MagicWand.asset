@@ -13,12 +13,19 @@ MonoBehaviour:
   m_Name: MagicWand
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   weaponName: MagicWand
-  prefab: {fileID: 554175184482113385, guid: e734cb6abee49ca45b6d221cb43aed8c, type: 3}
+  controller: {fileID: 206510768389761233, guid: 5200835a16eabe7419e76c496f373cfd,
+    type: 3}
+  bullet: {fileID: 554175184482113385, guid: e734cb6abee49ca45b6d221cb43aed8c, type: 3}
   image: {fileID: 5378226525086922102, guid: 41bbf33d09568f94ba3de41fffd89669, type: 3}
   icon: {fileID: -2645352184261527693, guid: 079596b5e220ba447a823849d510edb9, type: 3}
   isEvolutional: 1
   poolLimit: 60
   poolName: MagicWand
+  bulletHitBoxRadius: 0.2
+  knockBack: 1
+  baseSpeed: 2
+  maxLevel: 8
+  currentLevel: 1
   levelStats:
   - damage: 10
     cooldown: 1.2

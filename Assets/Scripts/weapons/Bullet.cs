@@ -48,8 +48,6 @@ public abstract class Bullet : MonoBehaviour
 
     protected bool isDestroyed = false;
 
-    public Transform baseTransform;
-
     // void Start()
     // {
     //     spatialGroup = GameController.instance.GetSpatialGroupStatic(transform.position.x, transform.position.y); // GET spatial group
@@ -130,7 +128,7 @@ public abstract class Bullet : MonoBehaviour
         //Knife.instance.ProjectileCount--;
         GameController.instance.bulletSpatialGroups[spatialGroup].Remove(this);
         //Destroy(gameObject);
-        resetStats();
+        //ResetStats();
         BulletPoolManager.instance.ReturnToPool(poolName, this.gameObject);
         isDestroyed = true;
     }
@@ -141,7 +139,7 @@ public abstract class Bullet : MonoBehaviour
         DestroyBullet();
     }
 
-    public void startTravel()
+    public void StartTravel()
     {
         isDestroyed = false;
         spatialGroup = GameController.instance.GetSpatialGroupStatic(transform.position.x, transform.position.y); // GET spatial group
@@ -150,11 +148,10 @@ public abstract class Bullet : MonoBehaviour
         OnBulletSpawned?.Invoke();
     }
 
-    protected virtual void resetStats()
+    protected virtual void ResetStats()
     {
         transform.position = Vector3.zero;
         Vector3 scale = transform.localScale;
         transform.localScale = new Vector3((float)scale.x / area, (float)scale.y / area, (float)scale.z / area);  // reset scale
-        transform.localScale = baseTransform.localScale;
     }
 }

@@ -7,10 +7,11 @@ public class PlayerStatsManager : MonoBehaviour
 
     // Chỉ số gốc của nhân vật (Base Stats)
     public float baseHealth = 100f;
-    public float baseMoveSpeed = 5f;
+    public float baseMoveSpeed = 4f;
     public float baseDamageMultiplier = 1f; // 100%
     public float baseCooldownMultiplier = 1f; // 100%
     public float baseProjectileSpeedMultiplier = 1f; // 100%
+    public float baseArea = 1f;
 
     // Hàm lấy tổng chỉ số (Base + Passives)
     public float GetTotalStatModifier(StatType statType)
@@ -25,8 +26,16 @@ public class PlayerStatsManager : MonoBehaviour
 
             if (passive.affectedStat == statType)
             {
-                // Mảng bắt đầu từ 0, nên cần trừ 1
-                totalModifier += passive.levelStats[currentLevel - 1].statValue;
+                if (passive.isPercentage)
+                {
+                    // Mảng bắt đầu từ 0, nên cần trừ 1
+                    totalModifier += passive.levelStats[currentLevel - 1].statValue;
+                }
+                else
+                {
+                    totalModifier = 1f * passive.levelStats[currentLevel - 1].statValue;
+                }
+
             }
         }
         return totalModifier;
@@ -35,7 +44,9 @@ public class PlayerStatsManager : MonoBehaviour
     // Các hàm Helper để các script khác dễ dàng gọi
     public float GetCurrentHealth()
     {
-        return baseHealth * (1 + GetTotalStatModifier(StatType.MaxHealth));
+        float maxHealthBuff = GetTotalStatModifier(StatType.MaxHealth);
+        if (maxHealthBuff == 0) return baseHealth;
+        return baseHealth * GetTotalStatModifier(StatType.MaxHealth);
     }
 
     public float GetCurrentMoveSpeed()
@@ -51,14 +62,18 @@ public class PlayerStatsManager : MonoBehaviour
 
     public float GetCooldownMultiplier()
     {
-        // Cooldown càng giảm càng tốt, nên ta TRỪ đi modifier
-        // Ví dụ: Empty Tome tăng 8% giảm hồi chiêu -> 1 - 0.08 = 0.92 (92% thời gian gốc)
-        float cdr = GetTotalStatModifier(StatType.Cooldown);
-        return (float)Mathf.Clamp(baseCooldownMultiplier - cdr, 0.1f, 1f); // Giới hạn tối đa giảm 90%
+        float result = baseCooldownMultiplier + GetTotalStatModifier(StatType.Cooldown);
+        result = Mathf.Clamp(result, 0.1f, 0.9f);
+        return result;
     }
 
     public float GetProjectileSpeedMultiplier()
     {
         return baseProjectileSpeedMultiplier + GetTotalStatModifier(StatType.ProjectileSpeed);
+    }
+
+    public float GetAreaMultiplier()
+    {
+        return baseArea + GetTotalStatModifier(StatType.Area);
     }
 }

@@ -9,22 +9,23 @@ public abstract class WeaponController : MonoBehaviour
     [Header("Stats")]
     public int currentLevel;
     public int maxLevel;
-    public float damage;
+    public float damageMultiplier;
+    public float baseDamage;
     public int amount;
     public int pierce;
     public float cooldown;
     public float projectileInterval;
     public float baseSpeed;  // base speed
-    public float speed;  // speed multiplier (%), currentSpeed = baseSpeed * speed
+    public float speedMultiplier;  // speed multiplier (%), currentSpeed = baseSpeed * speed
     public float bulletHitBoxRadius;  // base radius 
-    public float area = 1f;    // area multiplier, currentArea = baseArea * area
+    public float areaMultiplier = 1f;    // area multiplier, currentArea = baseArea * area
     public float knockBack;
-    public Queue<GameObject> pool = new Queue<GameObject>();
     [Header("References")]
     public Transform firePoint; // Thường là vị trí của Player
 
     public Vector2 lastMoveDir = Vector2.right;
     protected float timer;
+    protected Transform baseTransform;
 
     public PlayerStatsManager statsManager;
 
@@ -41,20 +42,27 @@ public abstract class WeaponController : MonoBehaviour
     public void UpdateStats()
     {
         WeaponLevelStats weaponLevelStats = weaponData.levelStats[currentLevel - 1];
-        damage = weaponLevelStats.damage;
-        speed = weaponLevelStats.speed + statsManager.GetProjectileSpeedMultiplier() - 1;
-        area = weaponLevelStats.area;
+        baseDamage = weaponLevelStats.damage;
+        speedMultiplier = 1 + weaponLevelStats.speed - 1 + statsManager.GetProjectileSpeedMultiplier() - 1;
+        areaMultiplier = 1 + (weaponLevelStats.area - 1) + (statsManager.GetAreaMultiplier() - 1);
         amount = weaponLevelStats.amount;
         pierce = weaponLevelStats.pierce;
-        cooldown = weaponLevelStats.cooldown;
-        projectileInterval = weaponLevelStats.projectileInterval;
+        cooldown = weaponLevelStats.cooldown * statsManager.GetCooldownMultiplier();
+        projectileInterval = weaponLevelStats.projectileInterval ;
         Debug.Log(weaponLevelStats.upgradeDescription);
     }
 
-    void Start()
+    public virtual void Start()
     {
         statsManager = FindObjectOfType<PlayerStatsManager>();
-        BulletPoolManager.instance.CreatePool(weaponData);
+        GameObject obj = BulletPoolManager.instance.CreatePool(weaponData);
+        baseTransform = obj.transform;
+
+        knockBack = weaponData.knockBack;
+        baseSpeed = weaponData.baseSpeed;
+        bulletHitBoxRadius = weaponData.bulletHitBoxRadius;  // base area
+        //Destroy(obj);
+
         currentLevel = 1;
         UpdateStats();
     }

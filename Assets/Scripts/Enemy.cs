@@ -78,21 +78,10 @@ public class Enemy : MonoBehaviour
                 // Push this enemy away
                 Vector3 direction = transform.position - enemy.transform.position;
                 direction.Normalize();
-                enemy.transform.position -= direction * Time.deltaTime * movementSpeed * 5;
+                enemy.transform.position -= direction * Time.deltaTime * movementSpeed;
             }
         }
     }
-
-    // void OnCollisionEnter2D(Collision2D collision)
-    // {
-    //     if (collision.gameObject.tag == "Enemy")
-    //     {
-    //         // Push this enemy away
-    //         Vector3 direction = transform.position - collision.transform.position;
-    //         direction.Normalize();
-    //         collision.transform.position += direction * Time.deltaTime * movementSpeed;
-    //     }
-    // }
 
     public void ChangeHealth(float amount)
     {

@@ -13,12 +13,19 @@ MonoBehaviour:
   m_Name: Knife
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   weaponName: Knife
-  prefab: {fileID: 5796266261043341304, guid: 5e4d0e672dde3114a91a1cc25ddb5951, type: 3}
+  controller: {fileID: 3554576415255104033, guid: 30d86360a2c8d5a40b66851bb595079c,
+    type: 3}
+  bullet: {fileID: 5796266261043341304, guid: 5e4d0e672dde3114a91a1cc25ddb5951, type: 3}
   image: {fileID: -9005276204913121442, guid: ee780ebf1d5ac77488f735e416788eda, type: 3}
   icon: {fileID: 6502285064996646434, guid: 19db2749c606d234e9fedf7949abe52c, type: 3}
   isEvolutional: 1
   poolLimit: 70
   poolName: Knife
+  bulletHitBoxRadius: 0.1
+  knockBack: 0.5
+  baseSpeed: 5
+  maxLevel: 8
+  currentLevel: 1
   levelStats:
   - damage: 6.5
     cooldown: 1

@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+
+    private long coinAmount = 0;
     public bool gunDemoMode;
 
     public static GameController instance;
@@ -45,56 +47,25 @@ public class GameController : MonoBehaviour
     int mapHeightMax = -1;
     public int MAP_HEIGHT_MAX { get { return mapHeightMax; } }
 
-    // For enemies
+    // Enemies
     [HideInInspector] public Dictionary<int, HashSet<Enemy>> enemySpatialGroups = new Dictionary<int, HashSet<Enemy>>();
 
-    // For bullets
+    // Bullets
     [HideInInspector] public Dictionary<int, HashSet<Bullet>> bulletSpatialGroups = new Dictionary<int, HashSet<Bullet>>();
 
-    // For experience points
+    // Experience points
     public GameObject experiencePointPF;
     public Transform experiencePointHolder;
 
-    // For get spatial group STATIC (more efficient) calculations
+    // Spatial group STATIC
     int CELLS_PER_ROW_STATIC;
-    int CELLS_PER_COLUMN_STATIC; // Square grid assumption
+    int CELLS_PER_COLUMN_STATIC; // Square grid 
     public float CELL_WIDTH_STATIC;
     public float CELL_HEIGHT_STATIC;
     int HALF_WIDTH_STATIC;
     int HALF_HEIGHT_STATIC;
 
-    //! MIN HEAP FOR BATCH //
-    public class BatchScore : System.IComparable<BatchScore>
-    {
-        public int BatchId { get; }
-        public int Score { get; private set; }
-
-        public BatchScore(int batchId, int score)
-        {
-            BatchId = batchId;
-            Score = score;
-        }
-
-        public void UpdateScore(int delta)
-        {
-            Score += delta;
-        }
-
-        public int CompareTo(BatchScore other)
-        {
-            int scoreComparison = Score.CompareTo(other.Score);
-            if (scoreComparison == 0)
-            {
-                // When scores are equal, further compare based on BatchId
-                return BatchId.CompareTo(other.BatchId);
-            }
-            return scoreComparison;
-        }
-    }
-
     SortedSet<BatchScore> batchQueue_Enemy = new SortedSet<BatchScore>();
-
-    // Keeps track of the current score of each batch
     Dictionary<int, BatchScore> batchScoreMap_Enemy = new Dictionary<int, BatchScore>();
 
     public void AddToEnemyBatch(int batchId, Enemy enemy) { enemyBatches[batchId].Add(enemy); }
@@ -176,7 +147,6 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        // STATIC GET SPATIAL GROUP ONCE CALCULATIONS
         CELLS_PER_ROW_STATIC = (int)Mathf.Sqrt(numberOfPartitions);
         CELLS_PER_COLUMN_STATIC = CELLS_PER_ROW_STATIC; // Square grid assumption
         CELL_WIDTH_STATIC = spatialGroupWidth / CELLS_PER_ROW_STATIC;
@@ -188,7 +158,7 @@ public class GameController : MonoBehaviour
 
         InitializeBatches(); //! Initiate batch stuff
 
-        // Create 400 -> 10000 spatial groups
+        // Create spatial groups
         for (int i = 0; i < numberOfPartitions; i++)
         {
             enemySpatialGroups.Add(i, new HashSet<Enemy>());
@@ -196,8 +166,8 @@ public class GameController : MonoBehaviour
         }
 
         // Spawn 10,000 enemies
-        int initEnemyCount = gunDemoMode ? 100 : 10000;
-        maxEnemyCount = gunDemoMode ? 100 : 10000;
+        int initEnemyCount = gunDemoMode ? 300 : 10000;
+        maxEnemyCount = gunDemoMode ? 300 : 10000;
         for (int i = 0; i < initEnemyCount; i++)
         {
             SpawnEnemy();
@@ -242,8 +212,6 @@ public class GameController : MonoBehaviour
         {
             if (enemy) enemy.RunLogic();
         }
-
-        // TODO: Clean out previous batch?
     }
 
     void SpawnEnemies()
@@ -299,12 +267,6 @@ public class GameController : MonoBehaviour
         enemyScript.BatchID = batchToBeAdded;
         enemyBatches[batchToBeAdded].Add(enemyScript);
     }
-
-    //? Examples
-    // GetSpatialGroup(-50, -50); -->    0
-    // GetSpatialGroup( 50, -50); -->   99
-    // GetSpatialGroup(-50,  50); --> 9900
-    // GetSpatialGroup( 50,  50); --> 9999
 
     public int GetSpatialGroup(float xPos, float yPos)
     {
@@ -409,5 +371,44 @@ public class GameController : MonoBehaviour
             return false;
         }
         return true;
+    }
+
+    public void LifeSteal(float healAmount)
+    {
+        playerScript.ModifyHealth(healAmount);
+    }
+
+    public void ModifyCoins(int coins)
+    {
+        coinAmount += coins;
+
+    }
+
+     public class BatchScore : System.IComparable<BatchScore>
+    {
+        public int BatchId { get; }
+        public int Score { get; private set; }
+
+        public BatchScore(int batchId, int score)
+        {
+            BatchId = batchId;
+            Score = score;
+        }
+
+        public void UpdateScore(int delta)
+        {
+            Score += delta;
+        }
+
+        public int CompareTo(BatchScore other)
+        {
+            int scoreComparison = Score.CompareTo(other.Score);
+            if (scoreComparison == 0)
+            {
+                // When scores are equal, further compare based on BatchId
+                return BatchId.CompareTo(other.BatchId);
+            }
+            return scoreComparison;
+        }
     }
 }

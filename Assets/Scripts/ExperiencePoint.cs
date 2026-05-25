@@ -20,12 +20,12 @@ public class ExperiencePoint : MonoBehaviour
     public void RunLogic()
     {
         if (player == null) return;
-        if (isAttracted()) isMoving = true;
+        if (IsAttracted()) isMoving = true;
         else isMoving = false;
 
         if (isMoving)
         {
-            movementSpeed = 10;
+            movementSpeed = 5;
             if (player == null) currentMovementDirection = Vector3.zero;
             else currentMovementDirection = player.position - transform.position;
             currentMovementDirection.Normalize();
@@ -41,7 +41,18 @@ public class ExperiencePoint : MonoBehaviour
 
     }
 
-    private bool isAttracted()
+    //  private void OnBecameInvisible()
+    // {
+    //     // Khi ra khỏi màn hình
+    //     gameObject.SetActive(false);
+
+    // }
+    // private void OnBecameVisible()
+    // {
+    //     gameObject.SetActive(true);
+    // }
+
+    private bool IsAttracted()
     {
         if (player == null) return false;
         Vector3 playerPosition = player.position;
@@ -54,15 +65,5 @@ public class ExperiencePoint : MonoBehaviour
     }
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    
 }

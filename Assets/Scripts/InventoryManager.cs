@@ -4,60 +4,104 @@ using System.Collections.Generic;
 
 public class InventoryManager : MonoBehaviour
 {
+
+    public static InventoryManager instance;
+    public LevelUpManager levelUpManager;
+    public Transform player;
+    CharacterController playerScript;
+
+    public Transform firePoint;
+    public WeaponData firstWeapon;
     // Lưu trữ vũ khí hiện tại và cấp độ của chúng
     public Dictionary<WeaponData, int> currentWeapons = new Dictionary<WeaponData, int>();
+
     public Dictionary<PassiveData, int> currentPassives = new Dictionary<PassiveData, int>();
 
-    public void AddOrUpgradeWeapon(WeaponData weapon)
+    List<WeaponController> weapons = new List<WeaponController>();
+
+
+    public void AddNewWeapon(WeaponData newWeapon)
     {
-        if (currentWeapons.ContainsKey(weapon))
-        {
-            // Nếu đã có, tăng cấp độ (nhưng không vượt quá max level)
-            int maxLevel = weapon.levelStats.Length;
-            if (currentWeapons[weapon] < maxLevel)
-            {
-                currentWeapons[weapon]++;
-            }
-        }
-        else
-        {
-            // Nếu chưa có, thêm mới ở cấp 1
-            currentWeapons.Add(weapon, 1);
-        }
+        GameObject weapon = Instantiate(newWeapon.controller, player);
+        WeaponController weaponController = weapon.GetComponent<WeaponController>();
+        weaponController.weaponData = newWeapon;
+        weaponController.firePoint = player;
+        weapon.SetActive(true);
+        weapons.Add(weaponController);
+        UpdateWeaponUI();
+
     }
 
-    // public void TryEvolveWeapon()
-    // {
-    //     WeaponData weaponToEvolve = null;
+    public void UpdateWeaponUI()
+    {
+        List<Sprite> sprites = new List<Sprite>();
+        foreach (KeyValuePair<WeaponData, int> weapon in currentWeapons)
+        {
+            Debug.Log(weapon.Key.weaponName + " " + weapon.Value);
+            sprites.Add(weapon.Key.icon);
+        }
+        InventoryUI.instance.UpdateWeaponUI(sprites);
+    }
+    public void UpdatePassiveUI()
+    {
+        List<Sprite> sprites = new List<Sprite>();
+        foreach (KeyValuePair<PassiveData, int> passive in currentPassives)
+        {
+            sprites.Add(passive.Key.icon);
+        }
+        InventoryUI.instance.UpdatePassiveUI(sprites);
+    }
 
-    //     foreach (var weapon in currentWeapons.Keys)
-    //     {
-    //         // Kiểm tra 1: Vũ khí đã max level chưa?
-    //         bool isMaxLevel = currentWeapons[weapon] == weapon.levelStats.Length;
+   
 
-    //         // Kiểm tra 2: Có vũ khí tiến hóa không và có đồ nội tại yêu cầu chưa?
-    //         bool hasPassive = currentPassives.ContainsKey(weapon.requiredPassive);
 
-    //         if (isMaxLevel && weapon.evolutionWeapon != null && hasPassive)
-    //         {
-    //             weaponToEvolve = weapon;
-    //             break; // Chỉ tiến hóa 1 món mỗi rương
-    //         }
-    //     }
+    public ItemData CreateItemDataFromWeapon(WeaponData weaponData, int level)
+    {
+        return new ItemData(ItemType.Weapon, weaponData.weaponName, level,
+        weaponData.levelStats[level - 1].upgradeDescription, weaponData.icon, weaponData);
+    }
 
-    //     if (weaponToEvolve != null)
-    //     {
-    //         // Thêm vũ khí tiến hóa (Level 1)
-    //         AddOrUpgradeWeapon(weaponToEvolve.evolutionWeapon);
+    public ItemData CreateItemDataFromPassive(PassiveData passiveData, int level)
+    {
+        return new ItemData(ItemType.Passive, passiveData.passiveName, level,
+                        passiveData.levelStats[level - 1].description, passiveData.icon, passiveData);
+    }
 
-    //         // Xóa vũ khí cũ khỏi Inventory và hệ thống bắn đạn
-    //         currentWeapons.Remove(weaponToEvolve);
-    //         RemoveWeaponSpawner(weaponToEvolve);
-    //     }
-    //     else
-    //     {
-    //         // Nếu không đủ điều kiện tiến hóa, rương sẽ rớt ra nâng cấp ngẫu nhiên hoặc tiền
-    //         GiveRandomUpgradeOrGold();
-    //     }
-    // }
+    void Aware()
+    {
+        if (this != null) instance = this;
+    }
+
+    void Start()
+    {
+        playerScript = player.GetComponent<CharacterController>();
+        currentWeapons.Add(firstWeapon, 1);
+        AddNewWeapon(firstWeapon);
+        UpdatePassiveUI();
+
+    }
+
+    public void UpdateStats()
+    {
+        foreach (var weapon in weapons)
+        {
+            weapon.UpdateStats();
+        }
+        playerScript.UpdateStats();
+    }
+
+    public void UpdateStatsWeapon(WeaponData weaponData)
+    {
+        foreach (var weapon in weapons)
+        {
+            if (weapon.weaponData.weaponName == weaponData.weaponName)
+            {
+                Debug.Log("Update weapon " + weaponData.weaponName);
+                weapon.currentLevel = currentWeapons[weaponData];
+                weapon.UpdateStats();
+                return;
+            }
+        }
+
+    }
 }

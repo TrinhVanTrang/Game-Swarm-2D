@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f4504aacc008d046834f346a3eaec2b, type: 3}
+  m_Name: Floor Chicken
+  m_EditorClassIdentifier: Assembly-CSharp::PassiveData
+  passiveName: Floor Chicken
+  image: {fileID: -6748423715967639004, guid: ea0bc67ec981fa543a0a805290fe92da, type: 3}
+  icon: {fileID: -6748423715967639004, guid: ea0bc67ec981fa543a0a805290fe92da, type: 3}
+  affectedStat: 10
+  isPercentage: 0
+  levelStats:
+  - statValue: 30
+    description: Heals 30 HP.
+  maxLevel: 1
+  currentLevel: 1

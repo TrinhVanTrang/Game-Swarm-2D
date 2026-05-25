@@ -63,11 +63,4 @@ public class WhipDamageArea : Bullet
         // Nếu khoảng cách bình phương nhỏ hơn hoặc bằng bình phương bán kính -> VA CHẠM!
         return distanceSquared <= (radius * radius);
     }
-
-    protected override void resetStats()
-    {
-        base.resetStats();
-        Vector3 scale = transform.localScale;
-        transform.localScale = new Vector3((float)scale.x / dirX, scale.y, scale.z);  // reset scale
-    }
 }

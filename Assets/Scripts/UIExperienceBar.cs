@@ -10,10 +10,12 @@ public class UIExperienceBar : MonoBehaviour
     public Image xpFillImage; // Kéo thả XPBar_Fill vào đây trên Inspector
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI timeText;
+    public TextMeshProUGUI coinAmountText;
 
     [Header("Experience Stats")]
     //public int currentLevel = 1;
     private float timer = 0f;
+    private long coinAmount = 0;
 
     void UpdateTimeDisplay()
     {
@@ -42,6 +44,11 @@ public class UIExperienceBar : MonoBehaviour
 
     }
 
+    public void UpdateCoinAmountUI( int coins){
+        coinAmount+=coins;
+        coinAmountText.text = coinAmount.ToString();
+    }
+
     void Awake()
     {
         instance = this;
@@ -51,6 +58,7 @@ public class UIExperienceBar : MonoBehaviour
     {
         UpdateExperienceBar(0, 10);
         levelText.text = "LV1";
+        coinAmountText.text = "0";
     }
 
     // Update is called once per frame

@@ -28,3 +28,5 @@ MonoBehaviour:
     description: Base speed up by 10%
   - statValue: 0.5
     description: Base speed up by 10%
+  maxLevel: 5
+  currentLevel: 1

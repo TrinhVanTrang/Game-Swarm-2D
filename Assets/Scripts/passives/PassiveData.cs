@@ -20,6 +20,15 @@ public class PassiveData : ScriptableObject
 
     // Dữ liệu từ cấp 1 đến cấp tối đa
     public PassiveLevelStats[] levelStats;
+
+    public int maxLevel;
+    public int currentLevel;
+
+    public ItemData CreateItemDataFromPassive()
+    {
+        return new ItemData(ItemType.Passive, passiveName, currentLevel,
+                        levelStats[currentLevel - 1].description, icon, this);
+    }
 }
 
 

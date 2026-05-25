@@ -17,13 +17,21 @@ public struct WeaponLevelStats
 public class WeaponData : ScriptableObject
 {
     public string weaponName;
-    public GameObject prefab;  // prefab bullet
+    public GameObject controller;  // prefab controller
+    public GameObject bullet;  // prefab bullet
     public Sprite image;
     public Sprite icon;
     
     public bool isEvolutional;
     public int poolLimit;
     public string poolName;
+
+    [Header("Other Stats")]
+    public float bulletHitBoxRadius;
+    public float knockBack;
+    public float baseSpeed;
+    public int maxLevel;
+    public int currentLevel;
 
     // Mảng này sẽ chứa dữ liệu từ Level 1 đến Max Level (thường là 8)
     public WeaponLevelStats[] levelStats;

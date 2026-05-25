@@ -16,21 +16,25 @@ public class MagicWandController : WeaponController
     {
         if (firePoint == null) return;
         //UpdateDirection();
-        Transform target = GetClosestEnemy();
-        if (target != null) {
-            //Debug.Log("Found closest enemy: "+target.position.x+" "+target.position.y);
-            lastMoveDir = target.position - firePoint.position;
-            isAttacking = true;
-        } else
-        {
-            isAttacking = false;
-            Debug.Log("Nothing!");
-        }
+        // Transform target = GetClosestEnemy();
+        // if (target != null)
+        // {
+        //     //Debug.Log("Found closest enemy: "+target.position.x+" "+target.position.y);
+        //     lastMoveDir = target.position - firePoint.position;
+        //     isAttacking = true;
+        // }
+        // else
+        // {
+        //     isAttacking = false;
+        //     Debug.Log("Enemy not found!");
+        // }
         timer += Time.deltaTime;
         if (timer >= cooldown)
         {
-            if (isAttacking == true)
+            Transform target = GetClosestEnemy();
+            if (target != null)
             {
+                lastMoveDir = target.position - firePoint.position;
                 timer = 0;
                 StartCoroutine(FireSequence());
             }
@@ -54,16 +58,12 @@ public class MagicWandController : WeaponController
         Transform closestEnemy = null;
         float closestDistance = Mathf.Infinity;
 
-        // Duyệt từ vòng r = 0 (ô hiện tại) mở rộng dần ra ngoài cho đến maxCellRadius
         for (int r = 0; r <= maxCellRadius; r++)
         {
-            // Duyệt qua các ô nằm trên VIỀN của hình vuông bán kính r
             for (int x = -r; x <= r; x++)
             {
                 for (int y = -r; y <= r; y++)
                 {
-                    // MẸO: Chỉ quét những ô nằm ĐÚNG ở viền ngoài cùng của vòng r hiện tại
-                    // Lõi bên trong đã được các vòng lặp trước (r nhỏ hơn) xử lý rồi.
                     if (Mathf.Abs(x) != r && Mathf.Abs(y) != r) continue;
                     int group = spatialGroup + x + y * widthRange;
                     HashSet<Enemy> cellEnemies = GameController.instance.enemySpatialGroups[group];
@@ -75,19 +75,16 @@ public class MagicWandController : WeaponController
 
                             float dist = Vector2.Distance(targetPos, enemy.transform.position);
 
-                            // Cập nhật kẻ địch gần nhất trong vùng đang xét
                             if (dist < maxRadius && dist < closestDistance)
                             {
                                 closestDistance = dist;
                                 closestEnemy = enemy.transform;
                             }
                         }
-                    } 
+                    }
 
                 }
             }
-
-            // --- ĐIỀU KIỆN THOÁT SỚM (EARLY EXIT) ---
             if (closestEnemy != null)
             {
                 if (Vector2.Distance(targetPos, closestEnemy.position) <= maxRadius)
@@ -120,23 +117,28 @@ public class MagicWandController : WeaponController
         GameObject bulletGO = BulletPoolManager.instance.GetBullet(weaponData);
         if (bulletGO == null) return;
         MagicWandBullet proj = bulletGO.GetComponent<MagicWandBullet>();
-        proj.baseTransform = bulletGO.transform;
+        bulletGO.transform.localScale = baseTransform.localScale;
         bulletGO.transform.position = pos;
-        bulletGO.transform.localScale *= area;
-        
+        bulletGO.transform.localScale *= areaMultiplier;
 
-        // Truyền các chỉ số vào viên dao
+
+        // Truyền các chỉ số vào viên đạn
         //proj.Setup(damage, pierce, speed, lastMoveDir);
         proj.poolName = weaponData.poolName;
-        proj.bulletDamage = damage;
-        proj.movementSpeed = baseSpeed * speed;
-        proj.bulletHitBoxRadius = bulletHitBoxRadius * area;
+        proj.bulletDamage = baseDamage;
+        proj.movementSpeed = baseSpeed * speedMultiplier;
+        proj.bulletHitBoxRadius = bulletHitBoxRadius * areaMultiplier;
         proj.MovementDirection = lastMoveDir;
         proj.modelTransform = bulletGO.transform;
         proj.knockBack = knockBack;
         proj.pierce = pierce;
-        proj.area = area;
+        proj.area = areaMultiplier;
 
-        proj.startTravel();
+        proj.StartTravel();
+    }
+
+    public override void Start()
+    {
+        base.Start();
     }
 }

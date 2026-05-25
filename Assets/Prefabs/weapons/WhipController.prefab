@@ -59,6 +59,5 @@ MonoBehaviour:
   knockBack: 1
   firePoint: {fileID: 0}
   lastMoveDir: {x: 1, y: 0}
-  baseTransform: {fileID: 0}
   statsManager: {fileID: 0}
   hitBoxSize: {x: 2, y: 0.5}

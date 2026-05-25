@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfb096926e0dfa942afb065ab916b204, type: 3}
+  m_Name: Axe
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  weaponName: Axe
+  controller: {fileID: 2543447386999176006, guid: 8c57cec84b937ef40b8c19fcfb628a05,
+    type: 3}
+  bullet: {fileID: 4516171940425257229, guid: 7c54655d621d7324eb3f0e18c36865e1, type: 3}
+  image: {fileID: -8430468618874921757, guid: fa3f68779a45d3840b87d6ae147716db, type: 3}
+  icon: {fileID: -5990662308704529619, guid: 48fa6363946d0e640a4ba7074f6a8c42, type: 3}
+  isEvolutional: 1
+  poolLimit: 70
+  poolName: Axe
+  bulletHitBoxRadius: 0.08
+  knockBack: 1
+  baseSpeed: 3
+  maxLevel: 8
+  currentLevel: 1
+  levelStats:
+  - damage: 20
+    cooldown: 4
+    projectileInterval: 0.2
+    speed: 1
+    area: 1
+    amount: 1
+    pierce: 3
+    upgradeDescription: High damage, high Area scaling.
+  - damage: 20
+    cooldown: 4
+    projectileInterval: 0.2
+    speed: 1
+    area: 1
+    amount: 2
+    pierce: 3
+    upgradeDescription: 'Fires 1 more projectile. '
+  - damage: 40
+    cooldown: 4
+    projectileInterval: 0.2
+    speed: 1
+    area: 1
+    amount: 2
+    pierce: 3
+    upgradeDescription: 'Base Damage up by 20. '
+  - damage: 40
+    cooldown: 4
+    projectileInterval: 0.2
+    speed: 1
+    area: 1
+    amount: 2
+    pierce: 5
+    upgradeDescription: 'Passes through 2 more enemies. '
+  - damage: 40
+    cooldown: 4
+    projectileInterval: 0.2
+    speed: 1
+    area: 1
+    amount: 3
+    pierce: 5
+    upgradeDescription: 'Fires 1 more projectile. '
+  - damage: 60
+    cooldown: 4
+    projectileInterval: 0.2
+    speed: 1
+    area: 1
+    amount: 3
+    pierce: 5
+    upgradeDescription: 'Base Damage up by 20. '
+  - damage: 60
+    cooldown: 4
+    projectileInterval: 0.2
+    speed: 1
+    area: 1
+    amount: 3
+    pierce: 7
+    upgradeDescription: Passes through 2 more enemies.
+  - damage: 80
+    cooldown: 4
+    projectileInterval: 0.2
+    speed: 1
+    area: 1
+    amount: 3
+    pierce: 7
+    upgradeDescription: Base Damage up by 20.
+  evolutionWeapon: {fileID: 11400000}
+  requiredPassive: {fileID: 11400000, guid: 33d2eeaddd9aae84b97f64edbd84a4f6, type: 2}

@@ -5,6 +5,7 @@ using System.Linq;
 
 public class BloodyTearDamageArea : Bullet
 {
+    public float healAmount;
     public float dirX;
     public Vector2 hitBoxSize; // Kích thước (base) vùng quất roi
 
@@ -26,7 +27,7 @@ public class BloodyTearDamageArea : Bullet
             Utils.GetExpandedSpatialGroupsV2(spatialGroup, Mathf.CeilToInt(radiusCheckBox)));
         if (enemies != null && enemies.Count > 0)
         {
-            RestoreHealth();
+            LifeSteal();
         }
         foreach (var enemy in enemies)
         {
@@ -41,9 +42,9 @@ public class BloodyTearDamageArea : Bullet
         //if (!isDestroyed) DestroyBullet();
     }
 
-    void RestoreHealth()
+    void LifeSteal()
     {
-        
+        GameController.instance.LifeSteal(healAmount);
     }
 
     bool IsBoxCollidingWithCircle(Vector2 circleCenter, float radius, Vector2 boxCenter, Vector2 boxSize)
@@ -73,10 +74,4 @@ public class BloodyTearDamageArea : Bullet
         return distanceSquared <= (radius * radius);
     }
 
-    protected override void resetStats()
-    {
-        base.resetStats();
-        Vector3 scale = transform.localScale;
-        transform.localScale = new Vector3((float)scale.x / dirX, scale.y, scale.z);  // reset scale
-    }
 }

@@ -13,12 +13,19 @@ MonoBehaviour:
   m_Name: BloodyTear
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   weaponName: BloodyTear
-  prefab: {fileID: 8847949083088352122, guid: 19dc42f0ccea54f4286b45083268c638, type: 3}
+  controller: {fileID: 9137256853052033386, guid: b447384db870c104cb7fe4ea9e057367,
+    type: 3}
+  bullet: {fileID: 8847949083088352122, guid: 19dc42f0ccea54f4286b45083268c638, type: 3}
   image: {fileID: -6271260450094184604, guid: 7a3017d0db56f074d80ac86384b66efb, type: 3}
   icon: {fileID: -7293498383090821306, guid: d5a45a7d1fb66f142b298b507691b63f, type: 3}
   isEvolutional: 0
   poolLimit: 30
   poolName: BloodyTear
+  bulletHitBoxRadius: 0
+  knockBack: 1
+  baseSpeed: 0
+  maxLevel: 1
+  currentLevel: 1
   levelStats:
   - damage: 40
     cooldown: 1.35

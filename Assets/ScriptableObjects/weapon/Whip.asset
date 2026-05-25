@@ -13,12 +13,19 @@ MonoBehaviour:
   m_Name: Whip
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   weaponName: Whip
-  prefab: {fileID: 3184795446767828048, guid: 44ebb1383f389e34da5e477cea9e3ae3, type: 3}
+  controller: {fileID: 8454699534598121520, guid: 07c7e68699c5a2649beb8f5a372f587f,
+    type: 3}
+  bullet: {fileID: 3184795446767828048, guid: 44ebb1383f389e34da5e477cea9e3ae3, type: 3}
   image: {fileID: 5550164877690090568, guid: 41a32b113869982418d54cbaa7e9de56, type: 3}
   icon: {fileID: -5233009089321712917, guid: f092e1959dbb0f34b89210384b552062, type: 3}
   isEvolutional: 1
   poolLimit: 30
   poolName: Whip
+  bulletHitBoxRadius: 0
+  knockBack: 1
+  baseSpeed: 0
+  maxLevel: 8
+  currentLevel: 1
   levelStats:
   - damage: 10
     cooldown: 1.35

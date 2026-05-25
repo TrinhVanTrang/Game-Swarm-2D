@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f4504aacc008d046834f346a3eaec2b, type: 3}
-  m_Name: Health
+  m_Name: HollowHeart
   m_EditorClassIdentifier: Assembly-CSharp::PassiveData
-  passiveName: Health
+  passiveName: Hollow Heart
   image: {fileID: -1515405729478551105, guid: 629e7d7bff1866e4f90d388cb046a7cf, type: 3}
   icon: {fileID: -6572516130235333609, guid: 1409c458439b484458cb3ec4c82d6f1e, type: 3}
   affectedStat: 0
@@ -26,5 +26,7 @@ MonoBehaviour:
     description: 'Max health increases by 20% '
   - statValue: 2.0736
     description: 'Max health increases by 20% '
-  - statValue: 2.48832
+  - statValue: 2.48856
     description: 'Max health increases by 20% '
+  maxLevel: 5
+  currentLevel: 1

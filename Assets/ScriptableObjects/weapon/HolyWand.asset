@@ -13,12 +13,19 @@ MonoBehaviour:
   m_Name: HolyWand
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   weaponName: HolyWand
-  prefab: {fileID: 8471947860932398836, guid: 6ce716d802b57bd419e752ae0f5fcb5d, type: 3}
+  controller: {fileID: 2419135483591988706, guid: abe352737db3fa64981a04a7e164ecfc,
+    type: 3}
+  bullet: {fileID: 8471947860932398836, guid: 6ce716d802b57bd419e752ae0f5fcb5d, type: 3}
   image: {fileID: -1785776301784423507, guid: 4d04f8a704242d84c8239a53867d60f0, type: 3}
   icon: {fileID: 2377215672550514876, guid: 201f5140c3e83bf498818f48a60888f3, type: 3}
   isEvolutional: 0
   poolLimit: 60
   poolName: HolyWand
+  bulletHitBoxRadius: 0.2
+  knockBack: 1
+  baseSpeed: 2
+  maxLevel: 1
+  currentLevel: 1
   levelStats:
   - damage: 30
     cooldown: 0.5
